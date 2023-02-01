@@ -38,5 +38,12 @@ RSpec.describe 'User Dashboard' do
         expect(page).to_not have_content(party3.event_date.strftime("%B %-d, %Y"))
       end
     end
+
+    it 'has button to discover movies (movies index)' do
+      visit user_path(charlie)
+      click_button 'Discover Movies'
+
+      expect(current_path).to eq(user_movies_path(charlie))
+    end
   end
 end
