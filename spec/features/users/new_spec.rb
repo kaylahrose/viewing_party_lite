@@ -21,6 +21,8 @@ RSpec.describe 'User registration page' do
       expect(current_path).to eq(user_path(user))
       expect(page.status_code).to eq 200
       expect(page).to have_content("#{user.name}'s Dashboard")
+      expect(user).to_not have_attribute(:password)
+      expect(user.password_digest).to_not eq('password123')
     end
   end
 
