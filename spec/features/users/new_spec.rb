@@ -11,11 +11,16 @@ RSpec.describe 'User registration page' do
 
       fill_in 'user[name]', with: 'Kaylah Rose'
       fill_in 'user[email]', with: '1234@valid.com'
+      fill_in 'user[password]', with: 'password123'
+      fill_in 'user[password_confirmation]', with: 'password123'
       click_button 'Register'
 
+      user = User.last 
+
       expect(User.count).to eq(1)
-      expect(current_path).to eq(user_path(User.last))
+      expect(current_path).to eq(user_path(user))
       expect(page.status_code).to eq 200
+      expect(page).to have_content("#{user.name}'s Dashboard")
     end
   end
 
