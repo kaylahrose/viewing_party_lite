@@ -33,6 +33,8 @@ RSpec.describe 'User registration page' do
       expect(User.count).to eq(0)
 
       fill_in 'user[email]', with: '1234@ldskfj'
+      fill_in 'user[password]', with: 'password123'
+      fill_in 'user[password_confirmation]', with: 'password123'
 
       click_button 'Register'
 
@@ -50,6 +52,8 @@ RSpec.describe 'User registration page' do
       expect(User.count).to eq(0)
 
       fill_in 'user[name]', with: '1234@ldskfj'
+      fill_in 'user[password]', with: 'password123'
+      fill_in 'user[password_confirmation]', with: 'password123'
 
       click_button 'Register'
 
@@ -66,6 +70,8 @@ RSpec.describe 'User registration page' do
       expect(User.all).to eq([])
       expect(User.count).to eq(0)
 
+      fill_in 'user[password]', with: 'password123'
+      fill_in 'user[password_confirmation]', with: 'password123'
       click_button 'Register'
 
       expect(User.all).to eq([])
@@ -78,7 +84,7 @@ RSpec.describe 'User registration page' do
     end
 
     it 'does not create a user with duplicate email' do
-      user1 = User.create!(name: 'dsflkj', email: '1234@valid.com')
+      user1 = User.create!(name: 'dsflkj', email: '1234@valid.com', password: 'sosecure', password_confirmation: 'sosecure')
       visit register_path
 
       expect(page).to have_field('user[name]')
@@ -87,6 +93,8 @@ RSpec.describe 'User registration page' do
 
       fill_in 'user[name]', with: 'Kaylah Rose'
       fill_in 'user[email]', with: '1234@valid.com'
+      fill_in 'user[password]', with: 'password123'
+      fill_in 'user[password_confirmation]', with: 'password123'
       click_button 'Register'
 
       expect(User.all).to eq([user1])
