@@ -1,6 +1,7 @@
 <%= render partial: './shared/header' %>
 
 <h2><%= button_to "Create a New User", register_path, method: :get %></h2>
+<%=link_to "Log In", login_path, method: :get %>
 
 <div id="users">
   <h3>Existing Users</h3>

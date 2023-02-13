@@ -1,0 +1,19 @@
+<%= render partial: './shared/header' %>
+
+<h2>Log In</h2>
+
+<%= form_with model: @user, local: true do |form| %>
+  <div>
+    <%= form.label :email %><br>
+    <%= form.text_field :email %>
+  </div>
+  
+  <div>
+    <%= form.label :password %><br>
+    <%= form.text_field :password %>
+  </div>
+
+  <div>
+    <%= form.submit "Log In" %>
+  </div>
+<% end %>
