@@ -10,7 +10,7 @@ RSpec.describe 'User Discover Movies Page' do
       .to_return(status: 200, body: File.read('./spec/fixtures/discover_movies_response.json'), headers: {})
   end
 
-  let!(:charlie) { User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com') }
+  let!(:charlie) { User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com', password: 'password123', password_confirmation: 'password123') }
 
   it 'redirects to movies results page (movies index)' do 
     visit discover_user_path(charlie) 

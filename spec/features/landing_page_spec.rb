@@ -18,9 +18,9 @@ RSpec.describe 'landing page' do
     end
 
     it 'has links of all existing users' do
-      charlie = User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com')
-      nicole = User.create!(name: 'Nicole', email: 'nicoley_oley@yahoo.com')
-      sara = User.create!(name: 'Sara', email: 'sara1983@gmail.com')
+      charlie = User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com', password: 'password123', password_confirmation: 'password123')
+      nicole = User.create!(name: 'Nicole', email: 'nicoley_oley@yahoo.com', password: 'sosecure123', password_confirmation: 'sosecure123')
+      sara = User.create!(name: 'Sara', email: 'sara1983@gmail.com', password: 'password', password_confirmation: 'password')
 
       visit root_path
 

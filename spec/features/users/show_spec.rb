@@ -15,8 +15,8 @@ RSpec.describe 'User Dashboard' do
       .to_return(status: 200, body: File.read('./spec/fixtures/green_mile/reviews_response.json'), headers: {})
   end
 
-  let!(:charlie) { User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com') }
-  let!(:nicole) { User.create!(name: 'Nicole', email: 'nicoley_oley@yahoo.com') }
+  let!(:charlie) { User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com', password: 'password123', password_confirmation: 'password123') }
+  let!(:nicole) { User.create!(name: 'Nicole', email: 'nicoley_oley@yahoo.com', password: 'sosecure123', password_confirmation: 'sosecure123') }
 
   let!(:party1) do
     ViewingParty.create!(duration: 189, event_date: Date.new(2023, 4, 12), start_time: Time.now - 4.hours,

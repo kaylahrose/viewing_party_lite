@@ -30,7 +30,7 @@ RSpec.describe 'Movie Results Page' do
       .to_return(status: 200, body: File.read('./spec/fixtures/green_mile/reviews_response.json'), headers: {})
   end
 
-  let!(:charlie) { User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com') }
+  let!(:charlie) { User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com', password: 'password123', password_confirmation: 'password123') }
 
   describe 'movie db api' do
     it 'displays the top rated movies' do

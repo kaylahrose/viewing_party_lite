@@ -6,9 +6,9 @@ RSpec.describe 'The new viewing party page' do
       .to_return(status: 200, body: File.read('./spec/fixtures/green_mile/details_response.json'), headers: {})
   end
 
-  let!(:charlie) { User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com') }
-  let!(:cindy) { User.create!(name: 'Cindy', email: 'user@gmail.com') }
-  let!(:louis) { User.create!(name: 'Louis', email: 'email_me@gmail.com') }
+  let!(:charlie) { User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com', password: 'password123', password_confirmation: 'password123') }
+  let!(:cindy) { User.create!(name: 'Cindy', email: 'user@gmail.com', password: 'sosecure123', password_confirmation: 'sosecure123') }
+  let!(:louis) { User.create!(name: 'Louis', email: 'email_me@gmail.com', password: 'password', password_confirmation: 'password') }
 
   it 'lists the movie title above the form' do
     visit "/users/#{charlie.id}/movies/497/viewing-party/new"

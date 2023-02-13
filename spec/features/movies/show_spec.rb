@@ -24,7 +24,7 @@ RSpec.describe 'Movie details page' do
       .to_return(status: 200, body: File.read('./spec/fixtures/godfather/details_response.json'), headers: {})
   end 
 
-  let!(:charlie) { User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com') }
+  let!(:charlie) { User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com', password: 'password123', password_confirmation: 'password123') }
 
   describe 'When I visit the movie details page' do
     it 'has button to create viewing party' do
