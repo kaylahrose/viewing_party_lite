@@ -102,5 +102,43 @@ RSpec.describe 'User registration page' do
       expect(page).to have_content('Email has already been taken')
       expect(page.status_code).to eq 200
     end
+
+    it 'does not create a user without a password' do 
+      visit register_path
+
+      expect(page).to have_field('user[name]')
+      expect(User.all).to eq([])
+      expect(User.count).to eq(0)
+
+      fill_in 'user[name]', with: 'Kaylah Rose'
+      fill_in 'user[email]', with: '1234@valid.com'
+      click_button 'Register'
+
+      user = User.last 
+
+      expect(User.count).to eq(0)
+      expect(current_path).to eq(register_path)
+      expect(page).to have_content("Password can't be blank and Password confirmation can't be blank")
+    end
+
+    it 'does not create a user if passwords do not match' do 
+      visit register_path
+
+      expect(page).to have_field('user[name]')
+      expect(User.all).to eq([])
+      expect(User.count).to eq(0)
+
+      fill_in 'user[name]', with: 'Kaylah Rose'
+      fill_in 'user[email]', with: '1234@valid.com'
+      fill_in 'user[password]', with: 'password123'
+      fill_in 'user[password_confirmation]', with: 'password'
+      click_button 'Register'
+
+      user = User.last 
+
+      expect(User.count).to eq(0)
+      expect(current_path).to eq(register_path)
+      expect(page).to have_content("Password confirmation doesn't match Password")
+    end
   end
 end
