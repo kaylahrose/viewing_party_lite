@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   def create
     user = User.create(user_params)
-    if user.save && user.password == user.password_confirmation
+    if user.save && user_params[:password] == user_params[:password_confirmation]
       redirect_to user_path(user)
     else
       flash[:notice] = user.errors.full_messages.to_sentence
@@ -40,10 +40,12 @@ class UsersController < ApplicationController
 
   def login_user 
     user = User.find_by(email: params[:email])
-    if user.authenticate(params[:password])
+    if user && user.authenticate(params[:password])
       flash[:success] = "Welcome, #{user.name}"
       redirect_to user_path(user)
     else 
+      flash[:error] = "Incorrect credentials. Please login again."
+      render :login_form
     end 
   end
 
