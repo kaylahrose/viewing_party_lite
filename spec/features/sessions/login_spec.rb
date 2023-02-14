@@ -90,7 +90,7 @@ RSpec.describe 'user login page' do
     end
 
     it 'will not let visitor or logged out user go to a user show page' do 
-      visit user_path(charlie)
+      visit dashboard_path
 
       expect(current_path).to eq root_path
       expect(page).to have_content("Must be logged in or registered to access dashboard")
@@ -101,7 +101,7 @@ RSpec.describe 'user login page' do
       fill_in 'password', with: 'password123'
       click_button "Log In"
 
-      expect(current_path).to eq user_path(charlie)
+      expect(current_path).to eq dashboard_path
     end
 
     it 'will not let a visitor or logged out user create a viewing party' do 

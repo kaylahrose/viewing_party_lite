@@ -2,7 +2,7 @@
 
 <h2>Register New User</h2>
 
-<%= form_with model: @user, local: true do |form| %>
+<%= form_with url: register_path, method: :post, local: true do |form| %>
   <div>
     <%= form.label :name %><br>
     <%= form.text_field :name %>
