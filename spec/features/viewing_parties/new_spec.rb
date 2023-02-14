@@ -11,6 +11,12 @@ RSpec.describe 'The new viewing party page' do
   let!(:louis) { User.create!(name: 'Louis', email: 'email_me@gmail.com', password: 'password', password_confirmation: 'password') }
 
   it 'lists the movie title above the form' do
+    visit login_path 
+    
+    fill_in 'email', with: 'charlie_boy@gmail.com'
+    fill_in 'password', with: 'password123'
+    click_button "Log In"
+
     visit "/users/#{charlie.id}/movies/497/viewing-party/new"
 
     expect(page).to have_content('The Green Mile')
@@ -102,7 +108,12 @@ RSpec.describe 'The new viewing party page' do
 
   describe 'sad path' do
     it 'does not create viewing party with duration less than movie runtime' do
-      
+      visit login_path 
+    
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+
       visit "/users/#{charlie.id}/movies/497/viewing-party/new"
       
       expect(ViewingParty.all).to eq([])

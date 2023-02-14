@@ -111,6 +111,17 @@ RSpec.describe 'user login page' do
 
       expect(current_path).to eq("/users/#{charlie.id}/movies/497")
       expect(page).to have_content("Must be logged in or registered to create a viewing party")
+
+      visit login_path 
+    
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+  
+      visit "/users/#{charlie.id}/movies/497"
+      click_button 'Create a Viewing Party'
+
+      expect(current_path).to eq("/users/#{charlie.id}/movies/497/viewing-party/new")
     end
   end
 end

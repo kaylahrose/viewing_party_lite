@@ -28,6 +28,12 @@ RSpec.describe 'Movie details page' do
 
   describe 'When I visit the movie details page' do
     it 'has button to create viewing party' do
+      visit login_path 
+    
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+
       visit "/users/#{charlie.id}/movies/497"
 
       click_button 'Create a Viewing Party'
