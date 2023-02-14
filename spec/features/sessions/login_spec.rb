@@ -48,4 +48,35 @@ RSpec.describe 'user login page' do
     expect(current_path).to eq login_path
     expect(page).to have_content("Incorrect credentials. Please login again.")
   end
+
+  describe 'log out user' do 
+    it 'will show log in and create account options if user not logged in' do 
+      visit root_path 
+
+      expect(page).to have_link("Log In")
+      expect(page).to have_button("Create a New User")
+      expect(page).to_not have_link("Log Out")
+    end
+
+    it 'will show link to log out on landing page if user is logged in' do 
+      visit login_path 
+    
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+  
+      visit root_path 
+
+      expect(page).to have_link("Log Out")
+      expect(page).to_not have_link("Log In")
+      expect(page).to_not have_button("Create a New User")
+
+      click_link "Log Out"
+
+      expect(current_path).to eq root_path
+      expect(page).to have_link("Log In")
+      expect(page).to have_button("Create a New User")
+      expect(page).to_not have_link("Log Out")
+    end
+  end
 end
