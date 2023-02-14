@@ -81,6 +81,7 @@ RSpec.describe 'Movie Results Page' do
 
       click_button 'Top Movies'
 
+      expect(current_path).to eq "/users/#{charlie.id}/movies"
       expect(page.status_code).to eq 200
       expect(page.all('Vote Average').count).to be <= 20
     end
@@ -99,7 +100,7 @@ RSpec.describe 'Movie Results Page' do
       expect(current_path).to eq "/users/#{charlie.id}/movies"
       click_link('The Green Mile')
 
-      expect(current_path).to eq "/users/#{charlie.id}/movies/497"
+      expect(current_path).to eq("/users/#{charlie.id}/movies/497")
 
       visit discover_path
 
@@ -109,7 +110,7 @@ RSpec.describe 'Movie Results Page' do
       expect(current_path).to eq "/users/#{charlie.id}/movies"
       click_link('The Enforcer')
 
-      expect(current_path).to eq "/users/#{charlie.id}/movies/846433"
+      expect(current_path).to eq("/users/#{charlie.id}/movies/846433")
     end
 
     it 'displays the vote average for each movie' do
