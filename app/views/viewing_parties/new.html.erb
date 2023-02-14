@@ -1,6 +1,6 @@
 <%= render partial: './shared/header' %>
 <h4>Create a Movie Party for <%=@movie[:title]%></h4>
-<%= button_to "Discover Page", discover_user_path(@user), method: :get %>
+<%= button_to "Discover Page", discover_path, method: :get %>
 <section id="form">
   <h4>Viewing Party Details</h4>
   <p>Movie Title : <%=@movie[:title]%></p>
