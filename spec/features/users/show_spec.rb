@@ -29,15 +29,23 @@ RSpec.describe 'User Dashboard' do
   let!(:party3) { ViewingParty.create!(duration: 82, event_date: Date.new(2023, 5, 9), start_time: Time.now + 2.hours) }
 
   describe 'when I visit the user dashboard' do
-    it "will display the user's name" do
-      visit user_path(charlie)
+    it "will display the user's name" do    
+      visit login_path
 
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+ 
       expect(page).to have_content("#{charlie.name}'s Dashboard")
       expect(page).to_not have_content(nicole.name)
     end
 
     it 'has a button to discover movies' do
-      visit user_path(charlie)
+      visit login_path
+
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
 
       expect(page).to have_button 'Discover Movies'
     end
@@ -47,7 +55,11 @@ RSpec.describe 'User Dashboard' do
       UserViewingParty.create!(user_id: charlie.id, viewing_party_id: party2.id)
       UserViewingParty.create!(user_id: nicole.id, viewing_party_id: party3.id)
 
-      visit user_path(charlie)
+      visit login_path
+
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
 
       within '#viewing_parties' do
         expect(page).to have_content(party1.event_date.strftime('%B %-d, %Y'))
@@ -59,7 +71,12 @@ RSpec.describe 'User Dashboard' do
     end
 
     it 'has button to discover movies (movies index)' do
-      visit user_path(charlie)
+      visit login_path
+
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+
       click_button 'Discover Movies'
 
       expect(current_path).to eq(discover_user_path(charlie))
@@ -71,7 +88,12 @@ RSpec.describe 'User Dashboard' do
       UserViewingParty.create!(user_id: nicole.id, viewing_party_id: party3.id)
       UserViewingParty.create!(user_id: nicole.id, viewing_party_id: party1.id)
 
-      visit user_path(charlie)
+      visit login_path
+
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+
       within("#party-#{party1.id}") do
         expect(page).to have_content('The Green Mile')
         expect(page).to have_content(party1.event_date.strftime('%B %-d, %Y'))
