@@ -28,6 +28,7 @@ class UsersController < ApplicationController
   def create
     user = User.create(user_params)
     if user.save 
+      session[:user_id] = user.id
       redirect_to user_path(user)
     else
       flash[:notice] = user.errors.full_messages.to_sentence
@@ -41,12 +42,18 @@ class UsersController < ApplicationController
   def login_user 
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.name}"
       redirect_to user_path(user)
     else 
       flash[:error] = "Incorrect credentials. Please login again."
       render :login_form
     end 
+  end
+
+  def destroy 
+    session.destroy
+    redirect_to root_path
   end
 
   private
