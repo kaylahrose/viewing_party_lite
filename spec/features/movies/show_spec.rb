@@ -42,11 +42,17 @@ RSpec.describe 'Movie details page' do
     end
 
     it 'has button to return to discover page' do
+      visit login_path 
+    
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+
       visit "/users/#{charlie.id}/movies/497"
 
       click_button 'Discover Page'
 
-      expect(current_path).to eq discover_user_path(charlie)
+      expect(current_path).to eq discover_path
     end
 
     it 'displays movie info' do
