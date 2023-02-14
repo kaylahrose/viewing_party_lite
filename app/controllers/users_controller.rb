@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :validate_user, only: :show
+
   def show
     @user = User.find(params[:id])
 
@@ -40,5 +42,12 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def validate_user 
+    if session[:user_id].nil?
+      flash[:error] = "Must be logged in or registered to access dashboard"
+      redirect_to root_path
+    end
   end
 end

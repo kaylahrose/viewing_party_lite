@@ -49,7 +49,7 @@ RSpec.describe 'user login page' do
     expect(page).to have_content("Incorrect credentials. Please login again.")
   end
 
-  describe 'log out user' do 
+  describe 'logged out user or visitor' do 
     it 'will show log in and create account options if user not logged in' do 
       visit root_path 
 
@@ -77,6 +77,13 @@ RSpec.describe 'user login page' do
       expect(page).to have_link("Log In")
       expect(page).to have_button("Create a New User")
       expect(page).to_not have_link("Log Out")
+    end
+
+    it 'will not let visitor or logged out user go to a user show page' do 
+      visit user_path(charlie)
+
+      expect(current_path).to eq root_path
+      expect(page).to have_content("Must be logged in or registered to access dashboard")
     end
   end
 end
