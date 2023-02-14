@@ -1,4 +1,6 @@
 class ViewingPartiesController < ApplicationController
+  before_action :validate_user
+
   def new
     @user = User.find(params[:id])
     
@@ -25,6 +27,16 @@ class ViewingPartiesController < ApplicationController
     else
       flash[:notice] = 'Party time must be longer than the movie runtime.'
       redirect_to("/users/#{host.id}/movies/#{params[:movie_id]}/viewing-party/new")
+    end
+  end
+
+  private 
+
+  def validate_user 
+    if session[:user_id].nil?
+      user = User.find(params[:id])
+      flash[:error] = "Must be logged in or registered to create a viewing party"
+      redirect_to("/users/#{user.id}/movies/#{params[:movie_id]}")
     end
   end
 end

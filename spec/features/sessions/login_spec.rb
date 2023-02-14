@@ -1,6 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'user login page' do
+  before :each do
+    stub_request(:get, "https://api.themoviedb.org/3/movie/497?api_key=#{ENV['MOVIE_DB_KEY']}")
+      .to_return(status: 200, body: File.read('./spec/fixtures/green_mile/details_response.json'), headers: {})
+  
+    stub_request(:get, "https://api.themoviedb.org/3/movie/497/credits?api_key=#{ENV['MOVIE_DB_KEY']}")
+      .to_return(status: 200, body: File.read('./spec/fixtures/green_mile/credits_response.json'), headers: {})
+
+    stub_request(:get, "https://api.themoviedb.org/3/movie/497/reviews?api_key=#{ENV['MOVIE_DB_KEY']}")
+      .to_return(status: 200, body: File.read('./spec/fixtures/green_mile/reviews_response.json'), headers: {})
+  end
 
   let!(:charlie) { User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com', password: 'password123', password_confirmation: 'password123') }
 
@@ -84,6 +94,23 @@ RSpec.describe 'user login page' do
 
       expect(current_path).to eq root_path
       expect(page).to have_content("Must be logged in or registered to access dashboard")
+      
+      visit login_path 
+    
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+
+      expect(current_path).to eq user_path(charlie)
+    end
+
+    it 'will not let a visitor or logged out user create a viewing party' do 
+      visit "/users/#{charlie.id}/movies/497"
+
+      click_button 'Create a Viewing Party'
+
+      expect(current_path).to eq("/users/#{charlie.id}/movies/497")
+      expect(page).to have_content("Must be logged in or registered to create a viewing party")
     end
   end
 end
