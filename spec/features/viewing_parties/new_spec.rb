@@ -31,15 +31,18 @@ RSpec.describe 'The new viewing party page' do
       click_button "Log In"
 
       visit "/users/#{charlie.id}/movies/497/viewing-party/new"
+
       expect(ViewingParty.all).to eq([])
+
       within('#form') do
         fill_in 'day', with: Date.tomorrow
         fill_in 'time', with: Time.now
         click_button 'Create Party'
       end
+
       expect(ViewingParty.all.count).to eq(1)
       expect(ViewingParty.all[0].host_id).to eq(charlie.id)
-      expect(current_path).to eq(user_path(charlie))
+      expect(current_path).to eq(dashboard_path)
     end
 
     it 'creates viewing party with custom duration and no other users' do
@@ -58,7 +61,7 @@ RSpec.describe 'The new viewing party page' do
         click_button 'Create Party'
       end
 
-      expect(current_path).to eq(user_path(charlie))
+      expect(current_path).to eq(dashboard_path)
     end
 
     it 'creates viewing party with default duration and other users' do
@@ -77,7 +80,7 @@ RSpec.describe 'The new viewing party page' do
         click_button 'Create Party'
       end
 
-      expect(current_path).to eq(user_path(charlie))
+      expect(current_path).to eq(dashboard_path)
       expect(cindy.user_viewing_parties.count).to eq(1)
       expect(UserViewingParty.all.count).to eq 2
     end
@@ -98,7 +101,7 @@ RSpec.describe 'The new viewing party page' do
         click_button 'Create Party'
       end
 
-      visit user_path(cindy)
+      visit dashboard_path
 
       within '#viewing_parties' do
         expect(page).to have_content(cindy.viewing_parties[0].event_date.strftime('%B %-d, %Y'))

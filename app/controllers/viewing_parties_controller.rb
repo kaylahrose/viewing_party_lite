@@ -23,7 +23,7 @@ class ViewingPartiesController < ApplicationController
 
         UserViewingParty.create(user_id: user.id, viewing_party_id: viewing_party.id) if params[user.name] == '1'
       end
-      redirect_to user_path(host)
+      redirect_to dashboard_path
     else
       flash[:notice] = 'Party time must be longer than the movie runtime.'
       redirect_to("/users/#{host.id}/movies/#{params[:movie_id]}/viewing-party/new")
