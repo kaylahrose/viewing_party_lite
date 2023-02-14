@@ -1,7 +1,7 @@
 <%= render partial: './shared/header' %>
 
 <h2><%= "#{@user.name}'s Dashboard" %></h2>
-<p><%= button_to "Discover Movies", discover_user_path(@user), method: :get %></p>
+<p><%= button_to "Discover Movies", discover_path, method: :get %></p>
 <section id="viewing_parties">
   <% @viewing_parties.each do |party| %>
       <p id="party-<%=party[:party_id]%>">

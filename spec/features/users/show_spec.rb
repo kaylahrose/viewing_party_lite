@@ -36,6 +36,7 @@ RSpec.describe 'User Dashboard' do
       fill_in 'password', with: 'password123'
       click_button "Log In"
  
+      expect(current_path).to eq dashboard_path
       expect(page).to have_content("#{charlie.name}'s Dashboard")
       expect(page).to_not have_content(nicole.name)
     end
@@ -79,7 +80,7 @@ RSpec.describe 'User Dashboard' do
 
       click_button 'Discover Movies'
 
-      expect(current_path).to eq(discover_user_path(charlie))
+      expect(current_path).to eq(discover_path)
     end
 
     it 'displays the viewing parties for a user' do
@@ -108,7 +109,9 @@ RSpec.describe 'User Dashboard' do
         expect(page).to have_content(party2.start_time.strftime('%I:%M %P'))
         expect(page).to have_content('Hosting: ')
       end
+
       click_link 'The Green Mile'
+      
       expect(current_path).to eq("/users/#{charlie.id}/movies/497")
     end
   end

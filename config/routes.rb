@@ -14,7 +14,10 @@ Rails.application.routes.draw do
 
   post '/users/:id/movies/:movie_id/viewing-party', to: 'viewing_parties#create'
 
-  resources :users, only: %i[show new create] do
-    get 'discover', on: :member
-  end
+  get '/dashboard', to: 'users#show'
+  get '/discover', to: 'users#discover'
+  
+  # resources :users, only: %i[show new create] do
+  #   get 'discover', on: :member
+  # end
 end

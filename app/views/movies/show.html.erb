@@ -1,6 +1,6 @@
 <%= render partial: './shared/header' %>
 <%= button_to "Create a Viewing Party", "/users/#{@user.id}/movies/#{@movie_id}/viewing-party/new", method: :get %>
-<%= button_to "Discover Page", discover_user_path(@user), method: :get %>
+<%= button_to "Discover Page", discover_path, method: :get %>
 
 <h1><%= @movie.title %></h1>
 <p>Vote Average: <%= @movie.vote_average %></p>
