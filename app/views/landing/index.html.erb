@@ -8,10 +8,12 @@
 <% end %>
 
 <div id="users">
-  <h3>Existing Users</h3>
-  <% @users.each do |user| %>
-    <div id="user_<%= user.id %>">
-      <li><%= link_to user.email, user_path(user) %></li>
-    </div>  
-  <% end %> 
+  <% if session[:user_id] %>
+    <h3>Existing Users</h3>
+    <% @users.each do |user| %>
+      <div id="user_<%= user.id %>">
+        <li><%= user.email %></li>
+      </div>  
+    <% end %> 
+  <% end %>  
 </div>

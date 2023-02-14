@@ -21,25 +21,19 @@ RSpec.describe 'landing page' do
       charlie = User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com', password: 'password123', password_confirmation: 'password123')
       nicole = User.create!(name: 'Nicole', email: 'nicoley_oley@yahoo.com', password: 'sosecure123', password_confirmation: 'sosecure123')
       sara = User.create!(name: 'Sara', email: 'sara1983@gmail.com', password: 'password', password_confirmation: 'password')
-
+      
+      visit login_path
+    
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+  
       visit root_path
 
       within '#users' do
-        expect(page).to have_link(charlie.email)
-        expect(page).to have_link(nicole.email)
-        expect(page).to have_link(sara.email)
-      end
-
-      within "#user_#{charlie.id}" do
-        click_link charlie.email
-        expect(current_path).to eq user_path(charlie)
-      end
-
-      visit root_path
-
-      within "#user_#{nicole.id}" do
-        click_link nicole.email
-        expect(current_path).to eq user_path(nicole)
+        expect(page).to have_content(charlie.email)
+        expect(page).to have_content(nicole.email)
+        expect(page).to have_content(sara.email)
       end
     end
 
