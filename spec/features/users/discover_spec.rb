@@ -13,7 +13,13 @@ RSpec.describe 'User Discover Movies Page' do
   let!(:charlie) { User.create!(name: 'Charlie', email: 'charlie_boy@gmail.com', password: 'password123', password_confirmation: 'password123') }
 
   it 'redirects to movies results page (movies index)' do 
-    visit discover_user_path(charlie) 
+    visit login_path
+
+    fill_in 'email', with: 'charlie_boy@gmail.com'
+    fill_in 'password', with: 'password123'
+    click_button "Log In"
+
+    visit discover_path 
 
     click_button "Top Movies"
 
@@ -21,7 +27,13 @@ RSpec.describe 'User Discover Movies Page' do
   end
 
   it 'has a text field to enter keyword(s) to search by movie title' do 
-    visit discover_user_path(charlie) 
+    visit login_path
+
+    fill_in 'email', with: 'charlie_boy@gmail.com'
+    fill_in 'password', with: 'password123'
+    click_button "Log In"
+
+    visit discover_path
 
     fill_in "Search Movie Title:", with: "boots"
     click_button "Search"
