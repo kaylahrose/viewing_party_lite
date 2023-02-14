@@ -34,7 +34,13 @@ RSpec.describe 'Movie Results Page' do
 
   describe 'movie db api' do
     it 'displays the top rated movies' do
-      visit discover_user_path(charlie)
+      visit login_path 
+    
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+
+      visit discover_path
 
       click_button 'Top Movies'
 
@@ -46,7 +52,13 @@ RSpec.describe 'Movie Results Page' do
     end
 
     it 'searches for movie by title' do
-      visit discover_user_path(charlie)
+      visit login_path 
+    
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+
+      visit discover_path
 
       fill_in 'Search Movie Title:', with: 'the'
       click_button 'Search'
@@ -59,7 +71,13 @@ RSpec.describe 'Movie Results Page' do
     end
 
     it 'lists a maximum of 20 movie results' do
-      visit discover_user_path(charlie)
+      visit login_path 
+    
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+
+      visit discover_path
 
       click_button 'Top Movies'
 
@@ -68,7 +86,13 @@ RSpec.describe 'Movie Results Page' do
     end
 
     it 'has a title for each movie as a link to the movie details page' do
-      visit discover_user_path(charlie)
+      visit login_path 
+    
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+
+      visit discover_path
 
       click_button 'Top Movies'
 
@@ -77,7 +101,7 @@ RSpec.describe 'Movie Results Page' do
 
       expect(current_path).to eq "/users/#{charlie.id}/movies/497"
 
-      visit discover_user_path(charlie)
+      visit discover_path
 
       fill_in 'Search Movie Title:', with: 'the'
       click_button 'Search'
@@ -89,7 +113,13 @@ RSpec.describe 'Movie Results Page' do
     end
 
     it 'displays the vote average for each movie' do
-      visit discover_user_path(charlie)
+      visit login_path 
+    
+      fill_in 'email', with: 'charlie_boy@gmail.com'
+      fill_in 'password', with: 'password123'
+      click_button "Log In"
+
+      visit discover_path
 
       click_button 'Top Movies'
 
@@ -99,12 +129,18 @@ RSpec.describe 'Movie Results Page' do
 
     describe 'sad path' do
       it 'displays a message if search did not find a result' do
-        visit discover_user_path(charlie)
+        visit login_path 
+    
+        fill_in 'email', with: 'charlie_boy@gmail.com'
+        fill_in 'password', with: 'password123'
+        click_button "Log In"
+  
+        visit discover_path
 
         fill_in 'Search Movie Title:', with: ';osifgn'
         click_button 'Search'
 
-        expect(current_path).to eq discover_user_path(charlie)
+        expect(current_path).to eq discover_path
         expect(page).to have_content('No results found. Please try another title.')
       end
     end

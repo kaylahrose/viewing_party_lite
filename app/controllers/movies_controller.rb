@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
       if results.empty?
         flash[:notice] = 'No results found. Please try another title.'
-        redirect_to discover_user_path(@user)
+        redirect_to discover_path
       end
     else
       results = MoviesFacade.top_movies
